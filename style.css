@@ -108,7 +108,35 @@ background: linear-gradient(90deg, rgba(240,224,29,1) 0%, rgba(255,249,102,1) 45
 }
 
 input{
-    width: 7vw;
+    width: 50%;
+}
+
+@media screen and (max-width: 758px){
+
+    .convert-2{
+        width: 80%;
+    }
+    .convert{
+        width: 90vw;
+    }
+    button{
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+    input{
+        width: 50%;
+    }
+    body{
+        padding-top: 40px;
+    }
+
+
+
+
+
+
+
 }
     
     
