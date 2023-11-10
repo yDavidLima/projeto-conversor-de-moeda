@@ -4,16 +4,26 @@ const convertButton = document.querySelector(".convert-button") /*Primeiro passo
                                                                   //Segundo passo foi pegar o click do botão, addEventListener.
 const currencySelect = document.querySelector(".currency-select")// nono passo foi "mapear" meu select para podermos pegar o valor dele quando clicarmos no botão e depois fazer nossa função de change 
 
-function convertValues() { /* Terceiro passo foi Criar essa função para que quando eu clicar no meu botão ele converta os valores.*/
+async function convertValues() { /* Terceiro passo foi Criar essa função para que quando eu clicar no meu botão ele converta os valores.*/
     const inputValue = document.querySelector(".values").value /* Quarto passo é pegar o valor do meu input e coloca-lo para dividir com o valor do dolar- Sexto passo é pegar esse valor e jogar na tela do Real(unConvertedReal) usando o innerHTML */
     const unconvertedValue = document.querySelector(".value-real") 
     const convertedValue = document.querySelector(".value-dolar") /* Quinto passo: antes de jogoar o valor na tela temos que jogar o valor convertido,
                                                             valor / dolar do dia. Criamos essa variavél para "guardar o valor convertido" */
 
     console.log(currencySelect.value)
-    const dolar = 5.04
-    const euro = 5.40 /* Esse é o quinto passo onde estamos fazendo o calculo para pegar o valor concertido. */
-    const libras = 6.17
+    // const dolar = 5.04
+    // const euro = 5.40 /* Esse é o quinto passo onde estamos fazendo o calculo para pegar o valor concertido. */
+    // const libras = 6.17
+
+
+    const data = await  fetch("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL").then(response => response.json())
+    console.log(data)
+
+    const bitcoin = data.BTCBRL.high
+    const dolar = data.USDBRL.high
+    const euro = data.EURBRL.high
+
+
 
     const convertdValue = inputValue / dolar /* Quinto passo finalizado pegamos o valor do input e dividimos pelo dolar do dia
                                                 Depois é só formatar o valor assim como esta abaixo.  */
@@ -35,11 +45,11 @@ function convertValues() { /* Terceiro passo foi Criar essa função para que qu
 
     }
 
-    if(currencySelect.value == "libras"){
-        convertedValue.innerHTML = new Intl.NumberFormat("en-GB", {
+    if(currencySelect.value == "bitcoin"){
+        convertedValue.innerHTML = new Intl.NumberFormat("en-US", {
             style: "currency",
-            currency: "GBP"
-        }).format(inputValue / libras)
+            currency: "BTC"
+        }).format(inputValue / bitcoin)
         
 
     }
@@ -85,9 +95,9 @@ function changeCurrency(){ /* Décimo primeiro passo, criar essa função para q
         changeImg.src = "./assets/Design sem nome 3.png"
        }
 
-       if(currencySelect.value == "libras"){
-            changeDolar.innerHTML = "Libra"
-            changeImg.src = "./assets/libra 1 (1).png"
+       if(currencySelect.value == "bitcoin"){
+            changeDolar.innerHTML = "Bitcoin"
+            changeImg.src = "./assets/libra 1.png"
             
             
 
